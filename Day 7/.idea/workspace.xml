@@ -2,7 +2,7 @@
 <project version="4">
   <component name="CMakeRunConfigurationManager" shouldGenerate="true" shouldDeleteObsolete="true" buildAllGenerated="true">
     <generated>
-      <config projectName="Day_3" targetName="Day_3" />
+      <config projectName="Day_7" targetName="Day_7" />
     </generated>
   </component>
   <component name="CMakeSettings">
@@ -11,11 +11,7 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f6043017-5bba-4f59-8b2e-e7e78031c5a5" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../Day 1/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Day 1/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Day 2/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Day 2/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Day 2/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../Day 2/main.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/main.cpp" afterDir="false" />
+    <list default="true" id="6b6b172d-4a88-4ace-b919-2739de9b602d" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/../Day 5/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Day 5/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Day 5/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../Day 5/main.cpp" afterDir="false" />
     </list>
@@ -28,24 +24,24 @@
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:Debug" />
   <component name="FUSProjectUsageTrigger">
-    <session id="2054316153">
+    <session id="1268262176">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="4" />
-          <entry key="project.open.time.0" value="1" />
-          <entry key="project.open.time.1" value="2" />
-          <entry key="project.open.time.37" value="1" />
-          <entry key="project.opened" value="4" />
+          <entry key="project.closed" value="2" />
+          <entry key="project.open.time.32" value="1" />
+          <entry key="project.open.time.4" value="1" />
+          <entry key="project.open.time.49" value="1" />
+          <entry key="project.opened" value="3" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="cpp" value="2238" />
+          <entry key="cpp" value="2379" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="ObjectiveC" value="2238" />
+          <entry key="ObjectiveC" value="2379" />
         </counts>
       </usages-collector>
     </session>
@@ -60,11 +56,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="356">
-              <caret line="53" column="23" lean-forward="true" selection-start-line="53" selection-start-column="23" selection-end-line="53" selection-end-column="23" />
-              <folding>
-                <element signature="e#0#19#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="119">
+              <caret line="85" column="49" lean-forward="true" selection-start-line="85" selection-start-column="49" selection-end-line="85" selection-end-column="49" />
             </state>
           </provider>
         </entry>
@@ -98,8 +91,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -119,20 +112,20 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.Day_3">
+  <component name="RunManager" selected="Application.Day_7">
     <configuration name="Build All" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" CONFIG_NAME="Debug" EXPLICIT_BUILD_TARGET_NAME="all">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Day_3" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Day_3" TARGET_NAME="Day_3" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Day_3" RUN_TARGET_NAME="Day_3">
+    <configuration name="Day_7" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Day_7" TARGET_NAME="Day_7" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Day_7" RUN_TARGET_NAME="Day_7">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
     <list>
       <item itemvalue="Application.Build All" />
-      <item itemvalue="Application.Day_3" />
+      <item itemvalue="Application.Day_7" />
     </list>
   </component>
   <component name="SvnConfiguration">
@@ -140,26 +133,25 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="f6043017-5bba-4f59-8b2e-e7e78031c5a5" name="Default Changelist" comment="" />
-      <created>1543829742151</created>
+      <changelist id="6b6b172d-4a88-4ace-b919-2739de9b602d" name="Default Changelist" comment="" />
+      <created>1544165918935</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1543829742151</updated>
-      <workItem from="1543829744281" duration="1657000" />
-      <workItem from="1543860948154" duration="259000" />
-      <workItem from="1543863864325" duration="1276000" />
-      <workItem from="1544187144836" duration="1263000" />
+      <updated>1544165918935</updated>
+      <workItem from="1544165921501" duration="1643000" />
+      <workItem from="1544169892488" duration="4034000" />
+      <workItem from="1544184948420" duration="315000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="4455000" />
+    <option name="totallyTimeSpent" value="5992000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.26096824" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25718608" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -193,11 +185,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/main.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="356">
-          <caret line="53" column="23" lean-forward="true" selection-start-line="53" selection-start-column="23" selection-end-line="53" selection-end-column="23" />
-          <folding>
-            <element signature="e#0#19#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="119">
+          <caret line="85" column="49" lean-forward="true" selection-start-line="85" selection-start-column="49" selection-end-line="85" selection-end-column="49" />
         </state>
       </provider>
     </entry>
