@@ -13,18 +13,24 @@ int main() {
     while (getline(file, segment)) {
         std::unordered_map<char, uint8_t> chars;
 
-        for (auto c : segment) {
+        for (auto c : segment)
             chars[c]++;
-        }
 
         bool hasTwo{false};
         bool hasThree{false};
         for (auto count : chars) {
-            if (count.second == 2) hasTwo = true;
-            if (count.second == 3) hasThree = true;
+            if (count.second == 2)
+                hasTwo = true;
+
+            if (count.second == 3)
+                hasThree = true;
         }
-        if (hasTwo) c2++;
-        if (hasThree) c3++;
+
+        if (hasTwo)
+            c2++;
+
+        if (hasThree)
+            c3++;
 
         strings[index++] = segment;
     }
@@ -50,6 +56,7 @@ int main() {
 
             if (amountOfDifferences == 1) {
                 std::cout << "Solution part 2: " << output.str() << std::endl;
+                exit(0);
             }
         }
     }

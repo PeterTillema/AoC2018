@@ -2,6 +2,7 @@
 #include <sstream>
 #include <fstream>
 #include <vector>
+#include <map>
 
 struct rectangle {
     int x{0};
@@ -14,23 +15,20 @@ int main() {
     std::fstream file{"../input.txt"};
     std::vector<rectangle> rectangles;
     std::string segment, str;
-    uint8_t claims[1001][1001]{0};
-    char c;
     int count{0};
     rectangle rect;
 
+    std::map<int, std::map<int, int>> claims;
+
     while (getline(file, segment)) {
         std::stringstream sss{segment};
+        char c;
 
         sss >> str >> c >> rect.x >> c >> rect.y >> c >> rect.w >> c >> rect.h;
         for (int a = rect.x; a < rect.x + rect.w; a++) {
             for (int b = rect.y; b < rect.y + rect.h; b++) {
-                if (claims[a][b] != 2) {
-                    claims[a][b]++;
-                    if (claims[a][b] == 2) {
-                        count++;
-                    }
-                }
+                if (claims[a][b]++ == 1)
+                    count++;
             }
         }
 
@@ -45,15 +43,13 @@ int main() {
 
         for (int a = rect2.x; a < rect2.x + rect2.w; a++) {
             for (int b = rect2.y; b < rect2.y + rect2.h; b++) {
-                if (claims[a][b] == 2) {
+                if (claims[a][b] > 1)
                     hasFound = false;
-                }
             }
         }
 
-        if (hasFound) {
+        if (hasFound)
             std::cout << "Solution part 2: " << id << std::endl;
-        }
 
         id++;
     }

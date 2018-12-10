@@ -3,39 +3,35 @@
 #include <sstream>
 #include <vector>
 
-unsigned int pos{0};
 int metadata{0};
 
 int parseNode(std::ifstream& file) {
-    int val{0}, amountOfChildren, metadataLength;
-    file >> amountOfChildren >> metadataLength;
+    int _nodeValue{0}, amountOfChildren, _metaLength;
+    file >> amountOfChildren >> _metaLength;
 
-    std::vector<int> childrenNodeValues;
-    for (int a = 0; a < amountOfChildren; a++) {
-        childrenNodeValues.push_back(parseNode(file));
-    }
+    std::vector<int> _children;
+    for (int a = 0; a < amountOfChildren; a++)
+        _children.push_back(parseNode(file));
 
     int metadataPrevious = metadata;
-    for (int a = 0; a < metadataLength; a++) {
-        int metadataValue;
+    for (int a = 0; a < _metaLength; a++) {
+        unsigned int _metaValue;
 
-        file >> metadataValue;
-        metadata += metadataValue;
-        if (metadataValue <= childrenNodeValues.size()) {
-            val += childrenNodeValues.at(metadataValue - 1);
-        }
+        file >> _metaValue;
+        metadata += _metaValue;
+        if (_metaValue <= _children.size())
+            _nodeValue += _children.at(_metaValue - 1);
     }
-    if (!amountOfChildren) {
-        val = metadata - metadataPrevious;
-    }
+    if (!amountOfChildren)
+        _nodeValue = metadata - metadataPrevious;
 
-    return val;
+    return _nodeValue;
 }
 
 int main() {
     auto file = std::ifstream{"../input.txt"};
 
-    int solutionPart2 = parseNode(file);
+    int _nodeValue = parseNode(file);
     std::cout << "Solution part 1: " << metadata << std::endl;
-    std::cout << "Solution part 2: " << solutionPart2 << std::endl;
+    std::cout << "Solution part 2: " << _nodeValue << std::endl;
 }

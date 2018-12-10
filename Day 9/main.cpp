@@ -3,65 +3,64 @@
 #include <algorithm>
 
 struct node {
-    node* prev;
-    node* next;
-    unsigned long long data;
+    node* _prev;
+    node* _next;
+    unsigned long data;
 };
 
-class Marbles {
+class marbles {
 private:
-    node* curr = nullptr;
+    node* _curr = nullptr;
 
 public:
-    void insert(unsigned long long data) {
-        node* n = new node;
-        n->data = data;
-        if (curr == nullptr) {
-            n->prev = n->next = n;
+    void insert(unsigned long data) {
+        node* _node = new node;
+
+        _node->data = data;
+        if (_curr == nullptr) {
+            _node->_prev = _node->_next = _node;
         } else {
-            n->prev = curr->prev;
-            n->next = curr;
-            n->prev->next = n->next->prev = n;
+            _node->_prev = _curr->_prev;
+            _node->_next = _curr;
+            _node->_prev->_next = _node->_next->_prev = _node;
         }
-        curr = n;
+        _curr = _node;
     }
 
-    unsigned long long remove() {
-        unsigned long long data = curr->data;
-        if (curr->next == curr) {
-            delete std::exchange(curr, nullptr);
-        } else {
-            curr->prev->next = curr->next;
-            curr->next->prev = curr->prev;
-            delete std::exchange(curr, curr->next);
-        }
+    unsigned long remove() {
+        unsigned long data = _curr->data;
+
+        _curr->_prev->_next = _curr->_next;
+        _curr->_next->_prev = _curr->_prev;
+        delete std::exchange(_curr, _curr->_next);
+
         return data;
     }
 
-    void next(int pos = 1) {
-        while (pos--) curr = curr->next;
+    void advance() {
+        _curr = _curr->_next->_next;
     }
 
-    void prev(int pos = 1) {
-        while (pos--) curr = curr->prev;
+    void back() {
+        int pos{7};
+        while (pos--)
+            _curr = _curr->_prev;
     }
 };
 
-unsigned long long getMaxValue(int amountOfMarbles, int amountOfPlayers) {
-    int currentPos{0};
-    int currentPlayer{0};
-
-    Marbles marbles;
-    std::map<int, unsigned long long> scores;
+unsigned long getMaxValue(int amountOfMarbles, int amountOfPlayers) {
+    int currentPos{0}, currentPlayer{0};
+    marbles marbles;
+    std::map<int, unsigned long> scores;
 
     marbles.insert(0);
-    for (unsigned long long i = 1; i <= amountOfMarbles; i++) {
+    for (unsigned long i = 1; i <= amountOfMarbles; i++) {
         currentPlayer = (currentPlayer % amountOfPlayers) + 1;
         if (i % 23) {
-            marbles.next(2);
+            marbles.advance();
             marbles.insert(i);
         } else {
-            marbles.prev(7);
+            marbles.back();
             scores[currentPlayer] += i + marbles.remove();
         }
     }

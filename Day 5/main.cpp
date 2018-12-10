@@ -5,8 +5,6 @@
 #include <map>
 
 int strip(std::string data, int remove = 0) {
-    int length = 0;
-
     if (remove) {
         data.erase(std::remove(data.begin(), data.end(), remove), data.end());
         data.erase(std::remove(data.begin(), data.end(), remove + 'A' - 'a'), data.end());
@@ -20,10 +18,9 @@ int strip(std::string data, int remove = 0) {
             char cur = data[a];
             char next = data[a + 1];
 
-            if (cur == next + 'A' - 'a' || cur == next - 'A' + 'a') {
+            if (cur == next + 'A' - 'a' || cur + 'A' - 'a' == next) {
                 data.erase(a, 2);
                 found = true;
-
             }
         }
     }
@@ -34,17 +31,13 @@ int strip(std::string data, int remove = 0) {
 int main() {
     std::ifstream inputFile{"../input.txt"};
     std::string data;
-    int length = 0;
 
     getline(inputFile, data);
     std::cout << "Solution part 1: " << strip(data) << std::endl;
 
-    std::map<char, int> lengths;
-    for (int i = 'a'; i <= 'z'; i++) {
-        lengths[i] = strip(data, i);
-    }
-    auto x = std::min_element(lengths.begin(), lengths.end(),
-            [](decltype(lengths)::value_type& l, decltype(lengths)::value_type& r) -> bool { return l.second < r.second; });
+    int minLength{INT_MAX};
+    for (int i = 'a'; i <= 'z'; i++)
+        minLength = std::min(minLength, strip(data, i));
 
-    std::cout << "Solution part 2: " << x->second << std::endl;
+    std::cout << "Solution part 2: " << minLength << std::endl;
 }

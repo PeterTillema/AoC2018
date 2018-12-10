@@ -3,7 +3,6 @@
 #include <sstream>
 #include <map>
 #include <vector>
-#include <cmath>
 
 int main() {
     int locations[50][2] = {{174, 356},
@@ -61,7 +60,7 @@ int main() {
 
     for (int x = -1500; x < 1900; x++) {
         for (int y = -1500; y < 1900; y++) {
-            int minDistance{5000};
+            int minDistance{INT_MAX};
             int minNum{0};
             bool twoAreEqual{false};
             int totalDistance = 0;
@@ -79,22 +78,19 @@ int main() {
                 }
             }
 
-            if (totalDistance < 10000) {
+            if (totalDistance < 10000)
                 totalArea++;
-            }
 
-            if (!twoAreEqual) {
+            if (!twoAreEqual)
                 area[minNum]++;
-            }
         }
     }
 
     int maxArea{0};
 
     for (auto x : area) {
-        if (x < 10000 && x > maxArea) {
+        if (x < 10000 && x > maxArea)
             maxArea = x;
-        }
     }
 
     std::cout << "Solution part 1: " << maxArea << std::endl;

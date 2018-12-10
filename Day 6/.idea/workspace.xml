@@ -12,15 +12,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e9dc4ccd-02da-4cda-b6ca-faba3a02ff08" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../Day 1/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Day 1/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Day 2/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Day 2/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Day 2/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../Day 2/main.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Day 3/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Day 3/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Day 3/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../Day 3/main.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Day 4/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Day 4/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Day 4/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../Day 4/main.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Day 5/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Day 5/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Day 5/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../Day 5/main.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Day 10/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Day 10/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Day 10/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../Day 10/main.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/main.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Day 8/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Day 8/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Day 8/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../Day 8/main.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Day 9/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Day 9/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Day 9/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../Day 9/main.cpp" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -34,21 +32,22 @@
     <session id="1464775680">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="3" />
+          <entry key="project.closed" value="4" />
+          <entry key="project.open.time.0" value="1" />
           <entry key="project.open.time.1" value="1" />
           <entry key="project.open.time.39" value="1" />
           <entry key="project.open.time.6" value="1" />
-          <entry key="project.opened" value="3" />
+          <entry key="project.opened" value="4" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="cpp" value="1494" />
+          <entry key="cpp" value="1608" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="ObjectiveC" value="1494" />
+          <entry key="ObjectiveC" value="1608" />
         </counts>
       </usages-collector>
     </session>
@@ -63,8 +62,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="186">
-              <caret line="61" column="40" selection-start-line="61" selection-start-column="40" selection-end-line="61" selection-end-column="40" />
+            <state relative-caret-position="170">
+              <caret line="10" column="39" lean-forward="true" selection-start-line="10" selection-start-column="39" selection-end-line="10" selection-end-column="39" />
               <folding>
                 <element signature="e#0#19#0" expanded="true" />
               </folding>
@@ -101,8 +100,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="ProjectPane" />
       <pane id="Scope" />
+      <pane id="ProjectPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -151,17 +150,18 @@
       <workItem from="1544075683457" duration="3368000" />
       <workItem from="1544091185622" duration="61000" />
       <workItem from="1544190771559" duration="108000" />
+      <workItem from="1544447736363" duration="323000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="3537000" />
+    <option name="totallyTimeSpent" value="3860000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25718608" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.26096824" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -195,8 +195,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/main.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="186">
-          <caret line="61" column="40" selection-start-line="61" selection-start-column="40" selection-end-line="61" selection-end-column="40" />
+        <state relative-caret-position="170">
+          <caret line="10" column="39" lean-forward="true" selection-start-line="10" selection-start-column="39" selection-end-line="10" selection-end-column="39" />
           <folding>
             <element signature="e#0#19#0" expanded="true" />
           </folding>
