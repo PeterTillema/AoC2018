@@ -26,51 +26,40 @@ int getSum(std::map<int, bool> map) {
 }
 
 int main() {
-    std::fstream file{"../input.txt"};
+    std::ifstream file{"../input.txt"};
     std::string segment;
-    std::string input2;
-    std::vector<changes> allChanges;
-    std::vector<int> diffs(30);
+    std::vector<int> diffs(20);
     std::map<int, bool> input;
+    bool allChanges[2][2][2][2][2]{false};
 
-    getline(file, segment);
-    std::stringstream sss{segment};
-    sss >> segment >> segment >> input2;
+    file >> segment >> segment >> segment;
 
     int index{0};
-    for (auto c : input2) {
+    for (auto c : segment) {
         input[index++] = (c == '#');
     }
 
     getline(file, segment);
+    getline(file, segment);
     while (getline(file, segment)) {
-        changes changes;
-
-        changes.prevPrev = (segment.at(0) == '#');
-        changes.prev = (segment.at(1) == '#');
-        changes.curr = (segment.at(2) == '#');
-        changes.next = (segment.at(3) == '#');
-        changes.nextNext = (segment.at(4) == '#');
-        changes.result = (segment.at(9) == '#');
-        allChanges.push_back(changes);
+        allChanges[segment.at(0) == '#']
+                  [segment.at(1) == '#']
+                  [segment.at(2) == '#']
+                  [segment.at(3) == '#']
+                  [segment.at(4) == '#'] = (segment.at(9) == '#');
     }
 
     int generation{0};
 
     while (++generation) {
         std::map<int, bool> newInput;
-        std::map<int, bool> input3 = input;
 
-        for (int b = -1000; b <= 1000; b++) {
-            for (auto c : allChanges) {
-                if (input[b - 2] == c.prevPrev &&
-                    input[b - 1] == c.prev &&
-                    input[b + 0] == c.curr &&
-                    input[b + 1] == c.next &&
-                    input[b + 2] == c.nextNext) {
-                    newInput[b] = c.result;
-                }
-            }
+        for (int b = -4 * generation; b <= 100 + 4 * generation; b++) {
+            newInput[b] = allChanges[input[b - 2]]
+                                    [input[b - 1]]
+                                    [input[b]]
+                                    [input[b + 1]]
+                                    [input[b + 2]];
         }
 
         int prevSum{getSum(input)};
@@ -83,7 +72,6 @@ int main() {
 
         diffs.erase(diffs.begin());
         diffs.push_back(diff);
-
         input = newInput;
 
         if (std::adjacent_find(diffs.begin(), diffs.end(), std::not_equal_to<>()) == diffs.end()) {
