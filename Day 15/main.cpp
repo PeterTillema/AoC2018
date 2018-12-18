@@ -5,6 +5,9 @@
 #include <sstream>
 #include <set>
 #include <deque>
+#include <algorithm>
+
+#define SIZE 32
 
 enum type {
     WALL,
@@ -32,7 +35,7 @@ struct mapEntry {
 
 using location = std::pair<int, int>;
 using path = std::vector<location>;
-using mapType = std::map<int, std::map<int, mapEntry>>;
+using mapType = mapEntry[SIZE][SIZE];
 
 bool findLocation(location loc, std::vector<location> vec) {
     for (auto c : vec) {
@@ -52,11 +55,11 @@ void printPath(path path) {
 }
 
 void printMap(mapType map) {
-    for (auto x : map) {
+    for (int row = 0; row < SIZE; row++) {
         std::stringstream general;
 
-        for (auto y : x.second) {
-            type z{y.second.type};
+        for (int column = 0; column < SIZE; column++) {
+            type z{map[row][column].type};
 
             if (z == WALL) {
                 std::cout << "#";
@@ -64,18 +67,18 @@ void printMap(mapType map) {
                 std::cout << ".";
             } else if (z == ELF) {
                 std::cout << "E";
-                general << "E(" << y.second.hp << "), ";
+                general << " E" << map[row][column].hp;
             } else {
                 std::cout << "G";
-                general << "G(" << y.second.hp << "), ";
+                general << " G" << map[row][column].hp;
             }
         }
-        std::cout << "    " << general.str() << "\n";
+        std::cout << general.str() << "\n";
     }
     std::cout << std::endl;
 }
 
-bool move_attack(type enemyType, mapType& map, int row, int column, int attackPower) {
+bool move_attack(type enemyType, mapType map, int row, int column, int attackPower) {
     if (map[row - 1][column].type != enemyType &&
         map[row][column - 1].type != enemyType &&
         map[row][column + 1].type != enemyType &&
@@ -84,16 +87,19 @@ bool move_attack(type enemyType, mapType& map, int row, int column, int attackPo
         std::vector<location> targets;
         auto curr = map[row][column];
 
-        for (auto a : map) {
-            for (auto b : a.second) {
-                if (b.second.type == enemyType) {
-                    targets.emplace_back(std::make_pair(a.first, b.first));
+        for (int a = 0; a < SIZE; a++) {
+            for (int b = 0; b < SIZE; b++) {
+                if (map[a][b].type == enemyType) {
+                    targets.emplace_back(std::make_pair(a, b));
                 }
             }
         }
 
         std::set<location> seen;
         std::deque<std::pair<path, location>> queue;
+        std::deque<std::pair<path, location>> solutions;
+        int solDepth{0};
+        bool foundSolution{false};
 
         location startPoint = std::make_pair(row, column);
         path tempPath;
@@ -109,6 +115,10 @@ bool move_attack(type enemyType, mapType& map, int row, int column, int attackPo
 
             queue.pop_front();
 
+            if (foundSolution && curPath.size() >= solDepth) {
+                break;
+            }
+
             // Get all the directions
             // curLoc.first = row
             // curLoc.second = column
@@ -118,17 +128,13 @@ bool move_attack(type enemyType, mapType& map, int row, int column, int attackPo
             location down = std::make_pair(curLoc.first + 1, curLoc.second);
 
             for (auto dir : {up, left, right, down}) {
+                auto tempPath2 = curPath;
+                tempPath2.push_back(dir);
+
                 if (findLocation(dir, targets)) {
-                    map[row][column].type = EMPTY;
-                    if (curPath.size() < 2) {
-                        std::cout << "Error!" << std::endl;
-                    } else {
-                        auto d = curPath.at(1);
-                        map[d.first][d.second] = curr;
-                        row = d.first;
-                        column = d.second;
-                    }
-                    goto stopsearching;
+                    solutions.emplace_back(std::make_pair(tempPath2, dir));
+                    solDepth = tempPath2.size();
+                    foundSolution = true;
                 } else {
                     if (map[dir.first][dir.second].type == EMPTY && !seen.count(dir)) {
                         auto tempPath2 = curPath;
@@ -139,58 +145,47 @@ bool move_attack(type enemyType, mapType& map, int row, int column, int attackPo
                 }
             }
         }
-stopsearching:;
+
+        if (foundSolution) {
+            // Sort solutions by target, and grab the first in reading order
+            auto x = std::min_element(solutions.begin(), solutions.end(),
+                                      [](const std::pair<path, location>& a, const std::pair<path, location>& b){
+                                          return a.second.first < b.second.first ||
+                                                 (a.second.first == b.second.first && a.second.second < b.second.second);
+                                      });
+
+            map[row][column].type = EMPTY;
+
+            // The new location is the second entry of the path
+            row = x->first.at(1).first;
+            column = x->first.at(1).second;
+            map[row][column] = curr;
+        }
     }
 
     // Attack!!
     int minHp{INT_MAX};
-    uint8_t enemy{0};
 
-    if (map[row - 1][column].type == enemyType) {
-        int hp{map[row - 1][column].hp};
-        if (hp < minHp) {
-            minHp = hp;
-        }
-    }
-    if (map[row][column - 1].type == enemyType) {
-        int hp{map[row][column - 1].hp};
-        if (hp < minHp) {
-            minHp = hp;
-            enemy = 1;
-        }
-    }
-    if (map[row][column + 1].type == enemyType) {
-        int hp{map[row][column + 1].hp};
-        if (hp < minHp) {
-            minHp = hp;
-            enemy = 2;
-        }
-    }
-    if (map[row + 1][column].type == enemyType) {
-        int hp{map[row + 1][column].hp};
-        if (hp < minHp) {
-            minHp = hp;
-            enemy = 3;
+    auto up = &map[row - 1][column];
+    auto left = &map[row][column - 1];
+    auto right = &map[row][column + 1];
+    auto down = &map[row + 1][column];
+    auto dirRight = &map[row][column];
+
+    for (auto dir : {up, left, right, down}) {
+        if (dir->type == enemyType) {
+            int hp{dir->hp};
+
+            if (hp < minHp) {
+                minHp = hp;
+                dirRight = dir;
+            }
         }
     }
 
     if (minHp != INT_MAX) {
-        if (!enemy) {
-            if (map[row - 1][column].attack(attackPower)) {
-                return true;
-            }
-        } else if (enemy == 1) {
-            if (map[row][column - 1].attack(attackPower)) {
-                return true;
-            }
-        } else if (enemy == 2) {
-            if (map[row][column + 1].attack(attackPower)) {
-                return true;
-            }
-        } else {
-            if (map[row + 1][column].attack(attackPower)) {
-                return true;
-            }
+        if (dirRight->attack(attackPower)) {
+            return true;
         }
     }
 
@@ -201,6 +196,7 @@ int main() {
     std::ifstream file{"../input.txt"};
     std::string segment;
     mapType map;
+    mapType prev_map;
 
     uint8_t row2{0};
     int amountOfElfes{0};
@@ -225,49 +221,51 @@ int main() {
                 entry.type = GLOBIN;
                 amountOfGloblins++;
             }
-            map[row2][column] = entry;
+            prev_map[row2][column] = entry;
             column++;
         }
         row2++;
     }
 
-    mapType prev_map = map;
     int amountOfElfesTemp{amountOfElfes};
     int amountOfGloblinsTemp{amountOfGloblins};
 
-    for (int attackPower = 3; attackPower < 400; attackPower++) {
+    for (int attackPower = 3; attackPower < 100; attackPower++) {
         bool hasSolutionPart2{true};
         bool needToDecrease{true};
         int rounds{0};
 
-        map = prev_map;
+        for (int a = 0; a < SIZE; a++) {
+            for (int b = 0; b < SIZE; b++) {
+                map[a][b] = prev_map[a][b];
+            }
+        }
         amountOfElfes = amountOfElfesTemp;
         amountOfGloblins = amountOfGloblinsTemp;
 
         while (amountOfElfes && amountOfGloblins) {
             rounds++;
-            for (auto &x : map) {
-                for (auto &y : x.second) {
-                    y.second.hasMoved = false;
+            for (int row = 0; row < SIZE; row++) {
+                for (int column = 0; column < SIZE; column++) {
+                    map[row][column].hasMoved = false;
                 }
             }
             int index{0};
-            for (auto &row : map) {//y
-                for (auto &column : row.second) {
-                    type z{column.second.type};
+            for (int row = 0; row < SIZE; row++) {
+                for (int column = 0; column < SIZE; column++) {
+                    type z{map[row][column].type};
 
-                    if (!column.second.hasMoved) {
+                    if (!map[row][column].hasMoved) {
+                        map[row][column].hasMoved = true;
                         if (z == ELF) {
                             needToDecrease = true;
-                            column.second.hasMoved = true;
-                            if (move_attack(GLOBIN, map, row.first, column.first, attackPower)) {
+                            if (move_attack(GLOBIN, map, row, column, attackPower)) {
                                 amountOfGloblins--;
                                 needToDecrease = amountOfGloblins || 0;
                             }
                         } else if (z == GLOBIN) {
                             needToDecrease = true;
-                            column.second.hasMoved = true;
-                            if (move_attack(ELF, map, row.first, column.first, 3)) {
+                            if (move_attack(ELF, map, row, column, 3)) {
                                 amountOfElfes--;
                                 needToDecrease = amountOfElfes || 0;
                                 hasSolutionPart2 = false;
@@ -279,20 +277,20 @@ int main() {
         }
 
         int totalHp{0};
-        for (auto x : map) {
-            for (auto y : x.second) {
-                if (y.second.type > EMPTY) {
-                    totalHp += y.second.hp;
+        for (int row = 0; row < SIZE; row++) {
+            for (int column = 0; column < SIZE; column++) {
+                if (map[row][column].type > EMPTY) {
+                    totalHp += map[row][column].hp;
                 }
             }
         }
 
         if (attackPower == 3) {
-            std::cout << "rounds: " << rounds - needToDecrease << " - total hp: " << totalHp << std::endl;
+            std::cout << "Solution part 1: " << (rounds - needToDecrease) * totalHp << std::endl;
         }
 
         if (hasSolutionPart2) {
-            std::cout << "rounds: " << rounds - needToDecrease << " - total hp: " << totalHp << " - attack power: " << attackPower << std::endl;
+            std::cout << "Solution part 2: " << (rounds - needToDecrease) * totalHp << std::endl;
             break;
         }
     }
