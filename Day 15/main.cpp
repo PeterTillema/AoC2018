@@ -3,7 +3,6 @@
 #include <map>
 #include <vector>
 #include <sstream>
-#include <set>
 #include <deque>
 #include <algorithm>
 
@@ -33,13 +32,17 @@ struct mapEntry {
     }
 };
 
-using location = std::pair<int, int>;
+struct location {
+    int row{0};
+    int column{0};
+};
+
 using path = std::vector<location>;
 using mapType = mapEntry[SIZE][SIZE];
 
 bool findLocation(location loc, std::vector<location> vec) {
     for (auto c : vec) {
-        if (loc == c) {
+        if (c.row == loc.row && c.column == loc.column) {
             return true;
         }
     }
@@ -49,7 +52,7 @@ bool findLocation(location loc, std::vector<location> vec) {
 
 void printPath(path path) {
     for (auto c : path) {
-        std::cout << "(" << c.first << "," << c.second << ") - ";
+        std::cout << "(" << c.row << "," << c.column << ") - ";
     }
     std::cout << std::endl;
 }
@@ -90,18 +93,19 @@ bool move_attack(type enemyType, mapType map, int row, int column, int attackPow
         for (int a = 0; a < SIZE; a++) {
             for (int b = 0; b < SIZE; b++) {
                 if (map[a][b].type == enemyType) {
-                    targets.emplace_back(std::make_pair(a, b));
+                    location loc = {a, b};
+                    targets.push_back(loc);
                 }
             }
         }
 
-        std::set<location> seen;
+        std::vector<location> seen;
         std::deque<std::pair<path, location>> queue;
         std::deque<std::pair<path, location>> solutions;
         int solDepth{0};
         bool foundSolution{false};
 
-        location startPoint = std::make_pair(row, column);
+        location startPoint = {row, column};
         path tempPath;
 
         tempPath.push_back(startPoint);
@@ -122,10 +126,10 @@ bool move_attack(type enemyType, mapType map, int row, int column, int attackPow
             // Get all the directions
             // curLoc.first = row
             // curLoc.second = column
-            location up = std::make_pair(curLoc.first - 1, curLoc.second);
-            location left = std::make_pair(curLoc.first, curLoc.second - 1);
-            location right = std::make_pair(curLoc.first, curLoc.second + 1);
-            location down = std::make_pair(curLoc.first + 1, curLoc.second);
+            location up = {curLoc.row - 1, curLoc.column};
+            location left = {curLoc.row, curLoc.column - 1};
+            location right = {curLoc.row, curLoc.column + 1};
+            location down = {curLoc.row + 1, curLoc.column};
 
             for (auto dir : {up, left, right, down}) {
                 auto tempPath2 = curPath;
@@ -136,10 +140,8 @@ bool move_attack(type enemyType, mapType map, int row, int column, int attackPow
                     solDepth = tempPath2.size();
                     foundSolution = true;
                 } else {
-                    if (map[dir.first][dir.second].type == EMPTY && !seen.count(dir)) {
-                        auto tempPath2 = curPath;
-                        tempPath2.push_back(dir);
-                        seen.insert(dir);
+                    if (map[dir.row][dir.column].type == EMPTY && !findLocation(dir, seen)) {
+                        seen.push_back(dir);
                         queue.emplace_back(std::make_pair(tempPath2, dir));
                     }
                 }
@@ -150,15 +152,15 @@ bool move_attack(type enemyType, mapType map, int row, int column, int attackPow
             // Sort solutions by target, and grab the first in reading order
             auto x = std::min_element(solutions.begin(), solutions.end(),
                                       [](const std::pair<path, location>& a, const std::pair<path, location>& b){
-                                          return a.second.first < b.second.first ||
-                                                 (a.second.first == b.second.first && a.second.second < b.second.second);
+                                          return a.second.row < b.second.row ||
+                                                 (a.second.row == b.second.row && a.second.column < b.second.column);
                                       });
 
             map[row][column].type = EMPTY;
 
             // The new location is the second entry of the path
-            row = x->first.at(1).first;
-            column = x->first.at(1).second;
+            row = x->first.at(1).row;
+            column = x->first.at(1).column;
             map[row][column] = curr;
         }
     }
@@ -170,7 +172,7 @@ bool move_attack(type enemyType, mapType map, int row, int column, int attackPow
     auto left = &map[row][column - 1];
     auto right = &map[row][column + 1];
     auto down = &map[row + 1][column];
-    auto dirRight = &map[row][column];
+    auto dirRight = &map[0][0];
 
     for (auto dir : {up, left, right, down}) {
         if (dir->type == enemyType) {
