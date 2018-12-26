@@ -1,0 +1,22 @@
+Nearest the big bot: 267
+Test
+Test
+Test
+Test
+Test
+Test
+Test
+Test
+Test
+Test
+Test
+Test
+Test
+Test
+Test
+Test
+Test
+Test
+Test
+The max count I found was: 967
+Best location value: 106323091
